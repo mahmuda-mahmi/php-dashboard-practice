@@ -7,18 +7,16 @@ require "functions.php";
 
 // connect to our MySQL database.
 
-class Person 
-{
-    public $name;
-    public $age;
+$dsn = "mysql:host=localhost;port=3306;dbname=myapp;user=root;charset=utf8mb4";
 
-    public function breath() {
-        echo $this -> name . " is breathing";
-    }
+$pdo = new PDO($dsn);
+
+$statement = $pdo->prepare("select * from posts");
+
+$statement->execute();
+
+$posts = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+foreach($posts as $post) {
+    echo "<li>" . $post['title'] . "</li>";
 }
-
-$person = new Person();
-$person->name = 'Kaiki';
-$person->age = 20;
-
-$person->breath();
