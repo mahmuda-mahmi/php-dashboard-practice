@@ -2,7 +2,7 @@
 // connect to our MySQL database and execute a query;
 
 class Database {
-    
+
     public $connection;
 
     public function __construct($config, $username = 'root', $password = '')
@@ -13,17 +13,17 @@ class Database {
         // $dsn = "mysql:host={$config['host']};port={$config['port']};dbname={$config['dbname']};charset={$config['charset']}";
 
         $this->connection = new PDO($dsn, $username, $password, [
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC //uppercase means that this is not an instant it is an constant
         ]);
         
     }
 
-    public function query($query) 
+    public function query($query, $params = []) 
     {
 
         $statement = $this->connection->prepare($query);
 
-        $statement->execute();
+        $statement->execute($params);
 
         return  $statement;
     }

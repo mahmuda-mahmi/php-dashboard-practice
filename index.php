@@ -1,17 +1,20 @@
 <?php
 
-require ("functions.php");
+require ("functions.php"); 
 require ("Database.php");
 
 // require "router.php";
 
 $config = require "config.php";
 
-
-
 $db = new Database($config['database']);
 
-$posts = $db->query("select * from posts")->fetchAll(); //uppercase means that this is not an instant it is an constant;
+$id = $_GET['id'];
+
+$query = "select * from posts where id = :id";
+
+
+$posts = $db->query($query, ['id' => $id])->fetch(); //uppercase means that this is not an instant it is an constant;
 
 dd($posts);
 
