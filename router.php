@@ -1,29 +1,24 @@
 <?php
 
-$uri = parse_url($_SERVER['REQUEST_URI'])['path'] ;
-
-$routes = [
-    '/' => 'controllers/index.php',
-    '/about' => 'controllers/about.php',
-    '/notes' => 'controllers/notes.php',
-    '/contact' => 'controllers/contact.php'
-];
-
+$routes = require ("routes.php");
 
 function routeToController($uri, $routes) {
     if(array_key_exists($uri, $routes)) {
         require $routes[$uri];
     } else {
-        abort();
+        abort(404);
     }
 }
 
-function abort() {
-    http_response_code(404);
+function abort($code = 404) {
+    http_response_code($code);
 
-    require 'view/404.php';
+    require "view/{$code}.php";
 
     die();
 }
+
+$uri = parse_url($_SERVER['REQUEST_URI'])['path'] ;
+
 
 routeToController($uri, $routes);
