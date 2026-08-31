@@ -1,5 +1,7 @@
 <?php
 // connect to our MySQL database and execute a query;
+namespace Core;
+use PDO;
 
 class Database {
 
@@ -16,7 +18,7 @@ class Database {
         $this->connection = new PDO($dsn, $username, $password, [
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC //uppercase means that this is not an instant it is an constant
         ]);
-        
+
     }
 
     public function query($query, $params = []) 

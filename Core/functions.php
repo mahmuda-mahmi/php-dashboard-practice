@@ -1,4 +1,6 @@
-<?php 
+<?php
+
+use Core\Response;
 
 $heading = "Home";
 
@@ -16,7 +18,7 @@ function urlIs($value)
     return $_SERVER['REQUEST_URI'] === $value;
 }
 
-function authorize($condition, $status = RESPONSE::FORBIDDEN)
+function authorize($condition, $status = Response::FORBIDDEN)
 {
     if($condition) {
         abort($status);
