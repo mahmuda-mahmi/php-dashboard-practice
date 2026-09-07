@@ -1,6 +1,6 @@
 <?php
 
-namespace Http\Forms\LoginForm;
+namespace Http\Forms;
 
 use Core\Validator;
 
