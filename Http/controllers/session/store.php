@@ -9,24 +9,25 @@ $password = $_POST['password'];
 
 //validate the form inputs
 
-$form = new LoginForm();
+$form = LoginForm::validate($attributes = [
+    'email' => $_POST['email'],
+    'password' => $_POST['password']
+]);
 
-if($form->validate($email, $password))
-{
-    if((new Authenticator)->attempt($email, $password)){
-        redirect('/');
-    }
+// $form = new LoginForm();
 
-    $form->error('email', "No matching account found for that email address and password");
-
+if((new Authenticator)->attempt($attributes['email'], $attributes['password'])){
+    redirect('/');
 }
 
-// return view('session/create.view.php', [
-//     'errors' => $form->errors()
-// ]);
+$form->error('email', "No matching account found for that email address and password");
+
 
 Session::flash('errors', $form->errors());
 
-// $_SESSION['_flash']['errors'] = $form->errors();
+// below lines are just added
+Session::flash('old', [
+    'email' => $_POST['email']
+]);
 
 return redirect('/login');
